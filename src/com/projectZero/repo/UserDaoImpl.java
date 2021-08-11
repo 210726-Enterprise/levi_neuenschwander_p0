@@ -1,15 +1,25 @@
 package com.projectZero.repo;
 
-import com.projectZero.Account;
+/*
+imports
+ */
 import com.projectZero.User;
 import com.projectZero.util.ConnectionFactory;
 import com.revature.collection.RevArrayList;
-import com.revature.collection.RevaList;
-
 import java.sql.*;
-import java.util.List;
 
+/*
+Class for database functionality for users
+ */
 public class UserDaoImpl {
+
+    /**
+     * Method to create a new user in the database
+     * @param fName first name of user
+     * @param lName last name of user
+     * @param username username of user
+     * @param pass password of user
+     */
     public void createUser(String fName, String lName, String username, String pass) {
         Connection connection = ConnectionFactory.getConnection();
         String sql = "INSERT INTO users (fname, lname, username, password) VALUES (?,?,?,?)";
@@ -28,11 +38,10 @@ public class UserDaoImpl {
         }
     }
 
-    public void updateUser(User u){
-        Connection connection = ConnectionFactory.getConnection();
-        String sql = "UPDATE";
-    }
-
+    /**
+     * Method to retrieve all users currently in the database
+     * @return list of users from the database
+     */
     public RevArrayList<User> getAllUsers() {
         Connection connection = ConnectionFactory.getConnection();
         RevArrayList<User> userList = new RevArrayList<>();

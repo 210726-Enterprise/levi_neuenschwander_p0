@@ -1,18 +1,22 @@
 package com.projectZero;
-
+//imports
 import com.projectZero.repo.AccountDaoImpl;
 import com.projectZero.repo.UserDaoImpl;
 import com.projectZero.service.AccountServiceImpl;
 import com.projectZero.service.UserServiceImpl;
 import com.revature.collection.RevArrayList;
-import com.revature.collection.RevaList;
-
-import java.sql.SQLOutput;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * Class UserMenus to create all user interaction.
+ */
 public class UserMenus {
+
+    /**
+     * Instance variables
+     */
     static Scanner sc = new Scanner(System.in);
     static UserServiceImpl usi = new UserServiceImpl(new UserDaoImpl());
     static AccountServiceImpl asi = new AccountServiceImpl(new AccountDaoImpl());
@@ -20,6 +24,10 @@ public class UserMenus {
     static UserFunction uf;
     static DecimalFormat df = new DecimalFormat("#.00");
 
+
+    /**
+     * Initial menu for user input
+     */
     public static void StartMenu(){
 
         System.out.println("1) Login");
@@ -40,6 +48,10 @@ public class UserMenus {
         }
     }
 
+
+    /**
+     * Menu to allow an existing user to login
+     */
     public static void loginMenu(){
         System.out.println("Username: ");
         String username = sc.nextLine();
@@ -55,6 +67,10 @@ public class UserMenus {
         }
     }
 
+
+    /**
+     * Menu to allow a user to create their profile in the database.
+     */
     public static void createMenu(){
         System.out.println("First Name: ");
         String fName = sc.nextLine();
@@ -68,6 +84,9 @@ public class UserMenus {
         StartMenu();
     }
 
+    /**
+     * Menu for existing users after logging in
+     */
     public static void systemMenu(){
         System.out.println("Welcome, " + uf.getUser().getFName() + ", what would you like to do?");
         System.out.println("1) Deposit Funds");
@@ -90,6 +109,12 @@ public class UserMenus {
         }
     }
 
+    /**
+     * Method to validate the credentials given in loginmenu against database values
+     * @param u user inputted username
+     * @param p user inputted password
+     * @return true if login is successful
+     */
     public static boolean validate(String u, String p){
         RevArrayList<User> userList = usi.getAllUsers();
         User user = null;
@@ -118,6 +143,9 @@ public class UserMenus {
         return false;
     }
 
+    /**
+     * Method to check user given deposit amount for proper format
+     */
     public static void deposit(){
         System.out.println("Deposit:");
         System.out.println("How much do you want to deposit?");
@@ -131,6 +159,9 @@ public class UserMenus {
         systemMenu();
     }
 
+    /**
+     * Method to check user given input for proper format
+     */
     public static void withdraw(){
         System.out.println("Withdraw:");
         System.out.println("How much do you want to withdraw?");
@@ -144,12 +175,18 @@ public class UserMenus {
         systemMenu();
     }
 
+    /**
+     * Method to print the current balance of a users account
+     */
     public static void viewBalance(){
         System.out.println("Here is your balance: ");
         System.out.println("$" + df.format(uf.viewBalance()));
         systemMenu();
     }
 
+    /**
+     * Method to set currently logged in user and check if they have an account
+     */
     public static void userAccount(){
         {
             boolean status = false;
@@ -170,6 +207,9 @@ public class UserMenus {
         }
     }
 
+    /**
+     * Method for user to exit back to initial menu
+     */
     public static void logout(){
         System.out.println("Goodbye");
         uf.setUser(null);
